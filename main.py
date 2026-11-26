@@ -10,6 +10,7 @@ byte-identical entry.png.
 """
 
 import hashlib
+import os
 import struct
 import zlib
 
@@ -364,7 +365,8 @@ def draw_card(c, x, y, item):
 
 def main():
     canvas = render()
-    png = write_png("entry.png", canvas)
+    out_path = os.path.join(os.environ.get("MAKEFUN_OUTPUT_DIR", "."), "entry.png")
+    png = write_png(out_path, canvas)
     digest = hashlib.sha256(png).hexdigest()
     print("entry.png: %dx%d, %d bytes" % (SIZE, SIZE, len(png)))
     print("sha256: %s" % digest)
